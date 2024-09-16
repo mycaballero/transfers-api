@@ -44,9 +44,9 @@ class OutboundServiceImpl implements OutboundService
 
     /**
      * @param CreateData $payload
-     * @return Outbound|array
+     * @return array|Outbound|Model|Collection
      */
-    public function createOrUpdate(CreateData $payload): Outbound|array
+    public function createOrUpdate(CreateData $payload): array|Outbound|Model|Collection
     {
         $user = Auth::user();
         try {
@@ -63,7 +63,7 @@ class OutboundServiceImpl implements OutboundService
                 'dispatched_quantity' => $payload->q_despachada?? null,
                 'guide' => $payload->guia?? null,
                 'truck_status' => $payload->estada_camion?? null,
-                'client' => config('blu.CLIENTS.HEAVY.name'),
+                'client' => env('APP_NAME'),
                 'length' => $payload->largo?? null,
                 'width' => $payload->ancho?? null,
                 'height' => $payload->alto?? null,
@@ -136,12 +136,15 @@ class OutboundServiceImpl implements OutboundService
      */
     public function initializeOutbounds(array|Collection $models): Collection|array
     {
+        $outbound = [];
         foreach ($models['pickings'] as $picking) {
             $warehouse = $this->getWarehouse($picking['location_id']);
             $carrier = $this->getCarrier($models['saleOrders'][0], $picking['event']);
             $shippingDate = $this->getDateWithConditions();
             $city = $this->cityService->getById($models['partners'][0]['city_id']);
-            dd($city);
+            $moves = array_filter($models['moves'], function ($move) use ($picking) {
+                return $move['picking_id'] === $picking['id'];
+            });
             try {
                 if ($picking['event'] != PickingEventEnum::CLAIM_IN_WAREHOUSE->value) {
                     $this->pickingService->updateEvent([
@@ -155,7 +158,7 @@ class OutboundServiceImpl implements OutboundService
                     "carrier" => $carrier,
                     "shipping_date" => $shippingDate,
                 ];
-                $outbound = $this->createOrUpdate(CreateData::from($payload));
+                $outbound[] = $this->createOrUpdate(CreateData::from($payload));
                 $this->sendEmail([
                     'mailers' => $warehouse->partners->pluck('partner.email')->toArray(),
                     'claim' => $picking['event'] === PickingEventEnum::CLAIM_IN_WAREHOUSE->value
@@ -174,28 +177,24 @@ class OutboundServiceImpl implements OutboundService
                     'destinationAddress' => $models['partners'][0]['address'],
                     'destinationPhone' => $models['partners'][0]['phone'],
                     'saleNumber' => $models['saleOrders'][0]['name'],
-                    'order_date' => DateTime::createFromFormat('Y-m-d H:i:s',$picking['created_at'])
-                        ->sub(new DateInterval('PT5H'))
-                        ->format('Y-m-d H:i:s'),
+                    'order_date' => strtotime($picking['created_at'] . ' -5 hours'),
                     'products' => array_map(function ($move) use ($models) {
-                        $product = array_filter($models['product'], function ($product) use ($move) {
+                        $product = array_filter($models['products'], function ($product) use ($move) {
                             return $move['product_id'] === $product['id'];
                         });
                         reset($product);
-                        return ['code' => $product['default_code'],
-                            'product' => $product['name'],
+                        return ['code' => $product[0]['default_code'],
+                            'product' => $product[0]['name'],
                             'quantity' => $move['product_uom_qty']
                         ];
-                    }, $models['moves'])
+                    }, $moves)
                 ]);
 
             } catch (\Exception $e) {
-                dd($e);
                 $outbound = [];
                 Log::error($e);
             }
         }
-        dd($outbound);
         return $outbound;
     }
 
@@ -259,7 +258,6 @@ class OutboundServiceImpl implements OutboundService
     private function sendEmail(array $models): void
     {
         $pdf = $this->pdfService->createDeliveryNotePdf($models);
-        dd($models['mailers']);
         Mail::to($models['mailers'])->send(new DeliveryNoteMailable($models, $pdf->output()));
     }
 }

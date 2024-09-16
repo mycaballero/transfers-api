@@ -30,11 +30,11 @@ class CityServiceImpl implements CityService
 
     /**
      * @param $id
-     * @return City
+     * @return Collection|Builder|Model|City
      */
-    public function getById($id): Collection|Builder
+    public function getById($id): Collection|Builder|Model|City
     {
-        return City::findOrFail($id)->with('state')->get();
+        return City::query()->where('id', '=', $id)->with('state')->first();
     }
 
     /**

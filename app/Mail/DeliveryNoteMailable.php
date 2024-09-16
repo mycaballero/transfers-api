@@ -32,7 +32,7 @@ class DeliveryNoteMailable extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            from: new Address(config('blu.EMAILS.STORE.ADDRESS'),config('blu.EMAILS.STORE.NAME')),
+            from: new Address(env('MAIL_FROM_ADDRESS'),env('MAIL_FROM_NAME')),
             subject: !empty($this->info['claim']) ? $this->info['order'].' - HEAVY MOGUL - URBANO'
                 : $this->info['order'].' - HEAVY MOGUL'
         );

@@ -21,7 +21,7 @@ interface PickingByProcessService
      * @param $pickings
      * @return void
      */
-    public function processPickingsFormOdoo($pickings): void;
+    public function processPickings($pickings): void;
 
     /**
      * @return array|bool

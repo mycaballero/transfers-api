@@ -64,7 +64,7 @@ class PickingByProcessServiceImpl implements PickingByProcessService
      * @param $pickings
      * @return void
      */
-    public function processPickingsFormOdoo($pickings): void
+    public function processPickings($pickings): void
     {
         foreach ($pickings as $picking) {
             $changesToDataBase = [

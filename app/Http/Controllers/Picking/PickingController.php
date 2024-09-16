@@ -27,7 +27,7 @@ class PickingController extends Controller
     public function getPickings(Request $request): mixed #AnonymousResourceCollection
     {
         $pickings = $this->pickingByProcessService->getPickingsWithTimeLimit();
-        return $this->pickingByProcessService->processPickingsFormOdoo($pickings);
+        return $this->pickingByProcessService->processPickings($pickings);
         #return PickingResource::collection($this->pickingService->getAll(GetAllData::from($request)));
     }
 }

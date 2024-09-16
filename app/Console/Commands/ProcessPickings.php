@@ -40,6 +40,6 @@ class ProcessPickings extends Command
     {
         Log::debug("Inicia comando procesamiento de transferencias");
         $pickings = $this->pickingByProcessService->getPickingsWithTimeLimit()?? [];
-        $this->pickingByProcessService->processPickingsFormOdoo($pickings);
+        $this->pickingByProcessService->processPickings($pickings);
     }
 }

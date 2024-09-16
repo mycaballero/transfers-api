@@ -13,9 +13,9 @@ interface OutboundService
 
     /**
      * @param CreateData $payload
-     * @return Outbound|array
+     * @return array|Outbound|Model|Collection
      */
-    public function createOrUpdate(CreateData $payload): Outbound|array;
+    public function createOrUpdate(CreateData $payload): array|Outbound|Model|Collection;
 
     /**
      * @param int $id
@@ -29,8 +29,16 @@ interface OutboundService
      */
     public function getByLimits(array $filters): Collection|array;
 
+    /**
+     * @param array|Collection $models
+     * @return Collection|array
+     */
     public function initializeOutbounds(array|Collection $models): Collection|array;
 
+    /**
+     * @param int $locationId
+     * @return Location|array
+     */
     public function getWarehouse(int $locationId): Location|array;
 
 }

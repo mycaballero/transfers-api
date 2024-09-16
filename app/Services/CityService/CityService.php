@@ -17,9 +17,9 @@ interface CityService
 
     /**
      * @param $id
-     * @return Collection|Builder
+     * @return Collection|Builder|Model|City
      */
-    public function getById($id): Collection|Builder;
+    public function getById($id): Collection|Builder|Model|City;
 
     /**
      * @param string $name
