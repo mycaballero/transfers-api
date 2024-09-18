@@ -16,6 +16,9 @@ enum CarrierEnum: string implements EnumInterface
     case HEAVY = 'HVY';
 
 
+    /**
+     * @return string
+     */
     public function description(): string
     {
         return match ($this) {

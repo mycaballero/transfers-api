@@ -11,7 +11,6 @@ interface SaleOrdersService
     public function create($payload): void;
 
     /**
-     * @param $uid
      * @param array $periods
      * @param array $restrictions
      * @return bool|array

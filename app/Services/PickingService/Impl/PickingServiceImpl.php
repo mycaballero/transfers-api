@@ -22,7 +22,7 @@ class PickingServiceImpl implements PickingService
 
         $data = [
             'id' => $payload['id'] ?? null,
-            'name' => PartnerHelper::generateOtuString(),
+            'name' => $payload['name'] ?? PartnerHelper::generateOtuString(),
             'sale_id' => $payload['sale_id'] ?? null,
             'event' => $payload['event'] ?? null,
             'status' => $payload['status'] ?? null,

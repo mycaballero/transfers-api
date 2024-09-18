@@ -35,7 +35,6 @@ class ProductServiceImpl implements ProductService
     }
 
     /**
-     * @param $uid
      * @param array|int $id
      * @return bool|array
      */
@@ -45,7 +44,6 @@ class ProductServiceImpl implements ProductService
     }
 
     /**
-     * @param $uid
      * @param array $periods
      * @param array $restrictions
      * @return bool|array

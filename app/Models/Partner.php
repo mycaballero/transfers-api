@@ -35,6 +35,9 @@ class Partner extends Model
         return $this->belongsTo(City::class);
     }
 
+    /**
+     * @return BelongsTo
+     */
     public function parenthood(): BelongsTo
     {
         return $this->belongsTo(Partner::class, 'parenthood_id', 'id');

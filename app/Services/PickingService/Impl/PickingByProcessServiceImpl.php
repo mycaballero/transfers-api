@@ -56,6 +56,7 @@ class PickingByProcessServiceImpl implements PickingByProcessService
     public function duplicate($picking, $locationId): Picking
     {
         $picking->id = null;
+        $picking->display_name = null;
         $picking->location_id =  $locationId;
         return $this->pickingService->create($picking->toArray());
     }
@@ -102,7 +103,7 @@ class PickingByProcessServiceImpl implements PickingByProcessService
                     'products' => $pickingByLocations['modelsToExtract']['products']->toArray(),
                     'partners' => $pickingByLocations['modelsToExtract']['partners'],
                 ];
-                // $this->extractPickingModels($changesToDataBase);
+                $this->extractPickingModels($changesToDataBase);
                 $this->outboundService->initializeOutbounds($changesToDataBase);
             }
         }

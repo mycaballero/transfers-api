@@ -33,9 +33,8 @@
         @if(!empty($info['claim']))
             <p>
                 <br><br><span class="font-semibold">Datos del mensajero:</span><br>
-                <span><strong>Nombre: </strong></span><span>{{ $info['claim']['name'] }}</span><br>
-                <span><strong>Cédula: </strong></span><span>{{ $info['claim']['id'] }}</span><br>
-                <span><strong>Placa: </strong></span><span>{{ $info['claim']['vehicle'] }}</span>
+                <span><strong>Nombre: </strong></span><span>{{ $info['claim']['display_name'] }}</span><br>
+                <span><strong>Cédula: </strong></span><span>{{ $info['claim']['vat'] }}</span><br>
             </p>
         @endif
     </div>

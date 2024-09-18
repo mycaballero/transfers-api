@@ -7,14 +7,11 @@ use Spatie\LaravelData\Data;
 class SaveData extends Data
 {
     /**
-     * @param string $address
-     * @param string $document_number
      * @param string $email
      * @param string $name
      * @param string $password
      * @param string $confirm_password
      * @param string $phone
-     * @param string|null $photo
      * @param bool $terms_and_conditions
      */
     public function __construct(

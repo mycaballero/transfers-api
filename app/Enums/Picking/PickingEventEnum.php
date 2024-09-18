@@ -22,7 +22,9 @@ enum PickingEventEnum: string implements EnumInterface
     case NO_CREDIT = 'SCD';
     case NO_CITY = 'NCT';
 
-
+    /**
+     * @return string
+     */
     public function description(): string
     {
         return match ($this) {
@@ -43,6 +45,9 @@ enum PickingEventEnum: string implements EnumInterface
         };
     }
 
+    /**
+     * @return int
+     */
     public function ranking(): int
     {
         return match ($this) {
@@ -63,15 +68,10 @@ enum PickingEventEnum: string implements EnumInterface
         };
     }
 
-    public function homologation(): string
-    {
-        return match ($this) {
-            self::DELIVERED_TO_WAREHOUSE => 'Entregado a bodega',
-            self::PACKED => 'Surtido',
-            self::DISPATCHED => 'Despachado'
-        };
-    }
-
+    /**
+     * @param string|null $code
+     * @return bool|null
+     */
     public static function getAvailableByCode(string|null $code): bool|null
     {
         return match ($code) {
@@ -89,17 +89,6 @@ enum PickingEventEnum: string implements EnumInterface
             self::NO_VALID_ADDRESS->value,
             self::DISPATCHED->value,
             self::BLU_FAIL->value => false,
-            default => null
-        };
-    }
-
-    public static function getCodeByHomologation(string|null $description): string|null
-    {
-        return match ($description) {
-            self::DELIVERED_TO_WAREHOUSE->homologation() => self::DELIVERED_TO_WAREHOUSE->value,
-            self::PACKED->homologation() => self::PACKED->value,
-            self::DELIVERED->homologation() => self::DELIVERED->value,
-            self::DISPATCHED->homologation() => self::DISPATCHED->value,
             default => null
         };
     }

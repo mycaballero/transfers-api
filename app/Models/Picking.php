@@ -23,10 +23,16 @@ class Picking extends Model
         'status',
     ];
 
+    /**
+     * @var string[]
+     */
     protected $appends = [
         'eventRanking'
     ];
 
+    /**
+     * @return int
+     */
     public function getEventRankingAttribute(): int
     {
         if (isset($this->event)) {
@@ -68,11 +74,17 @@ class Picking extends Model
         return $this->hasOne(Outbound::class);
     }
 
-    public function notes()
+    /**
+     * @return HasMany
+     */
+    public function notes(): HasMany
     {
         return $this->hasMany(Note::class, 'picking_id', 'id');
     }
 
+    /**
+     * @return HasMany
+     */
     public function moves(): HasMany
     {
         return $this->hasMany(Move::class, 'picking_id', 'id');

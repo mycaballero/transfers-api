@@ -45,14 +45,4 @@ class StockMoveServiceImpl implements StockMoveService
     {
         return Move::query()->get()->toArray();
     }
-
-    /**
-     * @param $id
-     * @param $fields
-     * @return bool
-     */
-    public function update($id, $fields): bool
-    {
-        return true;
-    }
 }

@@ -3,7 +3,6 @@
 namespace App\Services\PickingService\Impl;
 
 use App\DTO\Quant\GetAllData;
-use App\Enums\Picking\PickingEventEnum;
 use App\Models\Move;
 use App\Repositories\GeneralParameters\GeneralParametersRepository;
 use App\Services\CityService\CityService;
@@ -21,10 +20,10 @@ class PickingProcessServicesImpl implements PickingProcessServices
      * @param GeneralParametersRepository $generalParametersRepository
      */
     public function __construct(
-        protected StockQuantService     $quantService,
-        protected CityService           $cityService,
-        protected PickingUtilityService $pickingUtilityService,
-        protected GeneralParametersRepository $generalParametersRepository,
+        protected StockQuantService             $quantService,
+        protected CityService                   $cityService,
+        protected PickingUtilityService         $pickingUtilityService,
+        protected GeneralParametersRepository   $generalParametersRepository,
     )
     {
     }

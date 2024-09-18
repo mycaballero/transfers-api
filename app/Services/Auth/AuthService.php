@@ -19,7 +19,7 @@ interface AuthService
      * @return array
      * @throws AuthenticationException
      */
-    public function signIn($signInData): array;
+    public function signIn(SignInData $signInData): array;
 
     /**
      * @param User $user

@@ -4,7 +4,6 @@ namespace App\Services\Outbound\Impl;
 
 use App\DTO\Outbound\CreateData;
 use App\Enums\Picking\CarrierEnum;
-use App\Enums\Picking\FreightEnum;
 use App\Enums\Picking\PickingEventEnum;
 use App\Mail\DeliveryNoteMailable;
 use App\Models\Location;
@@ -14,7 +13,6 @@ use App\Services\Outbound\OutboundService;
 use App\Services\Pdf\PdfService;
 use App\Services\PickingService\PickingService;
 use App\Models\Outbound;
-use DateInterval;
 use DateTime;
 use DateTimeZone;
 use Exception;
@@ -132,6 +130,8 @@ class OutboundServiceImpl implements OutboundService
     }
 
     /**
+     * @param array|Collection $models
+     * @return Collection|array
      * @throws Exception
      */
     public function initializeOutbounds(array|Collection $models): Collection|array
@@ -159,6 +159,7 @@ class OutboundServiceImpl implements OutboundService
                     "shipping_date" => $shippingDate,
                 ];
                 $outbound[] = $this->createOrUpdate(CreateData::from($payload));
+                $date = new DateTime();
                 $this->sendEmail([
                     'mailers' => $warehouse->partners->pluck('partner.email')->toArray(),
                     'claim' => $picking['event'] === PickingEventEnum::CLAIM_IN_WAREHOUSE->value
@@ -177,7 +178,7 @@ class OutboundServiceImpl implements OutboundService
                     'destinationAddress' => $models['partners'][0]['address'],
                     'destinationPhone' => $models['partners'][0]['phone'],
                     'saleNumber' => $models['saleOrders'][0]['name'],
-                    'order_date' => strtotime($picking['created_at'] . ' -5 hours'),
+                    'order_date' => $date->setTimestamp(strtotime($picking['created_at'] . ' -5 hours'))->format('Y-m-d H:i:s'),
                     'products' => array_map(function ($move) use ($models) {
                         $product = array_filter($models['products'], function ($product) use ($move) {
                             return $move['product_id'] === $product['id'];

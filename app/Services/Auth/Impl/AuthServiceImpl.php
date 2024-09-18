@@ -25,7 +25,7 @@ class AuthServiceImpl implements AuthService
      * @return array
      * @throws AuthenticationException
      */
-    public function signIn($signInData): array
+    public function signIn(SignInData $signInData): array
     {
         $user = User::with('roles.permissions')->whereEmail($signInData->email)->first();
         if (!isset($user)) {

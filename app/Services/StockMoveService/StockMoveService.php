@@ -21,11 +21,4 @@ interface StockMoveService
      * @return bool|array
      */
     public function getAll(array $periods, array $restrictions): bool|array;
-
-    /**
-     * @param $id
-     * @param $fields
-     * @return bool
-     */
-    public function update($id, $fields): bool;
 }

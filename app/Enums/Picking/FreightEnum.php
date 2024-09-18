@@ -10,6 +10,9 @@ enum FreightEnum: string implements EnumInterface
     case FREIGHT_HEAVY = 'FHY';
     case FREIGHT_CLIENT = 'FCT';
 
+    /**
+     * @return string
+     */
     public function description(): string
     {
         return match ($this) {

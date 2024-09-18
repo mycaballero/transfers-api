@@ -31,9 +31,8 @@
     @if(!empty($claim))
         <p>
             <br><br><span class="font-semibold">Datos del mensajero:</span><br>
-            <span><strong>Nombre: </strong></span><span>{{ $claim['name'] }}</span><br>
-            <span><strong>Cédula: </strong></span><span>{{ $claim['id'] }}</span><br>
-            <span><strong>Placa: </strong></span><span>{{ $claim['vehicle'] }}</span>
+            <span><strong>Nombre: </strong></span><span>{{ $claim['display_name'] }}</span><br>
+            <span><strong>Cédula: </strong></span><span>{{ $claim['vat'] }}</span><br>
         </p>
     @endif
 </div>

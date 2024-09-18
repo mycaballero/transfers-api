@@ -8,11 +8,6 @@ use App\Models\SaleOrder;
 class SaleOrdersServiceImpl implements SaleOrdersService
 {
 
-    public function __construct(
-    )
-    {
-    }
-
     /**
      * @param $payload
      * @return void
@@ -36,7 +31,6 @@ class SaleOrdersServiceImpl implements SaleOrdersService
     }
 
     /**
-     * @param $uid
      * @param array $periods
      * @param array $restrictions
      * @return array

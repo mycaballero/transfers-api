@@ -3,7 +3,6 @@
 namespace App\Services\PickingService;
 
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model;
 
 interface PickingUtilityService
 {
@@ -52,7 +51,7 @@ interface PickingUtilityService
     /**
      * @param $saleOrder
      * @param $quantFiltered
-     * @return mixed
+     * @return Collection|array
      */
     public function quantCondition($saleOrder,$quantFiltered): Collection|array;
 

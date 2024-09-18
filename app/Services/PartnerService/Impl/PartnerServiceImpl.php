@@ -8,7 +8,6 @@ use App\Services\CityService\CityService;
 use App\Services\PartnerService\PartnerService;
 use App\Models\Partner;
 use Illuminate\Database\Eloquent\Model;
-use PhpParser\Node\Expr\AssignOp\Mod;
 use Ramsey\Collection\Collection;
 
 class PartnerServiceImpl implements PartnerService

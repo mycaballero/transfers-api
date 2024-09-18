@@ -12,7 +12,7 @@ interface PickingService
 {
     /**
      * @param $payload
-     * @return void
+     * @return Picking
      */
     public function create($payload): Picking;
 

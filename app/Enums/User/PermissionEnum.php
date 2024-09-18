@@ -28,6 +28,9 @@ enum PermissionEnum: string implements EnumInterface
         };
     }
 
+    /**
+     * @return PermissionEnum[]
+     */
     public static function getPermissions(): array
     {
         return [
