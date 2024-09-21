@@ -33,6 +33,7 @@ class AuthServiceImpl implements AuthService
         }
         if (Hash::check($signInData->password, $user->password)) {
             $user->tokens()->whereName('api-token')->delete();
+            $user->load(['roles.permissions']);
             return [
                 'user' => $user,
                 'token' => $user->createToken('api-token')->plainTextToken

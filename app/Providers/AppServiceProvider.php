@@ -10,6 +10,8 @@ use App\Services\CityService\CityService;
 use App\Services\CityService\Impl\CityServiceImpl;
 use App\Services\LocationService\Impl\LocationServiceImpl;
 use App\Services\LocationService\LocationService;
+use App\Services\Notes\Impl\NoteServiceImpl;
+use App\Services\Notes\NoteService;
 use App\Services\Outbound\Impl\OutboundServiceImpl;
 use App\Services\Outbound\OutboundService;
 use App\Services\PartnerService\Impl\PartnerServiceImpl;
@@ -49,6 +51,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(AuthService::class, AuthServiceImpl::class);
         $this->app->bind(CityService::class, CityServiceImpl::class);
         $this->app->bind(LocationService::class, LocationServiceImpl::class);
+        $this->app->bind(NoteService::class, NoteServiceImpl::class);
         $this->app->bind(OutboundService::class,OutboundServiceImpl::class);
         $this->app->bind(PartnerService::class, PartnerServiceImpl::class);
         $this->app->bind(PdfService::class, PdfServiceImpl::class);
